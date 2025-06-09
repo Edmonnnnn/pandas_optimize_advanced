@@ -1,0 +1,25 @@
+# Виртуальное окружение (любое)
+venv/
+ENV/
+.env/
+
+# Данные (csv, parquet, json, excel и др)
+*.csv
+*.parquet
+*.json
+*.xlsx
+*.xls
+
+# Системные и временные файлы Python/VSCode
+__pycache__/
+*.pyc
+*.pyo
+*.log
+.DS_Store
+.vscode/
+.ipynb_checkpoints/
+
+# Windows, Mac, Linux мусор
+Thumbs.db
+ehthumbs.db
+Icon?
