@@ -1,25 +1,21 @@
-# Виртуальное окружение (любое)
+# Исключить виртуальное окружение
 venv/
-ENV/
-.env/
 
-# Данные (csv, parquet, json, excel и др)
+# Исключить CSV и Parquet данные
 *.csv
 *.parquet
-*.json
-*.xlsx
-*.xls
 
-# Системные и временные файлы Python/VSCode
+# Исключить pycache и компилированные файлы
 __pycache__/
 *.pyc
 *.pyo
-*.log
-.DS_Store
-.vscode/
-.ipynb_checkpoints/
 
-# Windows, Mac, Linux мусор
+# Исключить IDE-файлы
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Исключить системные файлы
+.DS_Store
 Thumbs.db
-ehthumbs.db
-Icon?
