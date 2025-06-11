@@ -1,21 +1,4 @@
 # Исключить виртуальное окружение
 venv/
 
-# Исключить CSV и Parquet данные
-*.csv
-*.parquet
 
-# Исключить pycache и компилированные файлы
-__pycache__/
-*.pyc
-*.pyo
-
-# Исключить IDE-файлы
-.vscode/
-.idea/
-*.sublime-project
-*.sublime-workspace
-
-# Исключить системные файлы
-.DS_Store
-Thumbs.db
