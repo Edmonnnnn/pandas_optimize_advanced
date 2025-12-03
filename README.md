@@ -1,3 +1,133 @@
+🏎️ pandas_optimize_advanced
+
+A comparative performance benchmark and architectural review of processing large tabular datasets in Python using Pandas, Polars, and DuckDB.
+
+📚 Project Overview
+
+This project implements a real-world technical assignment from a freelance platform.
+Goal — dramatically accelerate analytics on CSV datasets using modern tools:
+
+Audit a slow Pandas-based script
+
+Rebuild the pipeline for maximum performance (Polars, DuckDB, Parquet)
+
+Perform a fair comparison of execution time, usability, and integration convenience
+
+🚩 Task Structure
+
+You are given 4 initial datasets:
+
+users.csv — users
+
+products.csv — products and categories
+
+purchases.csv — purchases (up to 2M rows)
+
+discounts.csv — discounts and validity periods
+
+Required:
+For each product/category, compute the top-3 cities by revenue,
+taking into account only valid discounts and excluding returns.
+
+📈 Solution Approach
+1. Data Generation & Exploration
+
+Generate real-like datasets using generate_data.py
+
+Analyze dataset structure with inspect_data.py
+
+2. Baseline (Slow) Pandas Approach
+
+slow_analysis.py — classic Pandas with copying, loops, and multiple intermediate DataFrames.
+
+Result:
+
+On 100k+ rows → execution time is tens of seconds
+
+Limitations: poor scalability, high RAM consumption
+
+3. Profiling & Bottleneck Detection
+
+Identified performance bottlenecks:
+
+Heavy I/O when reading CSV into DataFrames
+
+Excessive join/merge operations and .iterrows() loops
+
+No selective reading/filtering during the import stage
+
+4. Optimizations
+a. Convert CSV → Parquet
+
+One-time conversion using csv_to_parquet.py
+
+Result: 5–20× faster reading
+
+b. Polars Implementation (Lazy Mode)
+
+fast_top_cities_polars_lazy.py — lazy pipeline with parallel, vectorized execution
+
+Result:
+
+Full dataset (~2M rows) processed in 0.66 seconds
+
+c. DuckDB Implementation (SQL + Parquet)
+
+fast_top_cities_duckdb_fast.py — SQL query over Parquet files
+
+Result:
+
+Full dataset processed in 0.85 seconds
+
+d. (Planned) ClickHouse integration for ultra-large datasets (not included in repo)
+📊 Benchmark Results
+Engine	Time (sec)	Notes
+Pandas (baseline)	3.7+	Easy to start, inefficient for big data
+Polars (Lazy)	0.66	Multithreaded, parallel, concise workflow
+DuckDB (Parquet)	0.85	SQL-based, great for ad-hoc analytics
+🚀 Key Takeaways
+
+Modern engines (Polars, DuckDB, Parquet) are tens of times faster than Pandas — even on a laptop!
+
+Lazy execution (Polars Lazy, SQL in DuckDB) enables complex pipelines to run in milliseconds.
+
+Core optimization principles:
+
+Prefer Parquet over CSV whenever possible
+
+Apply filtering + aggregation at read time (scan → filter → groupby)
+
+Avoid unnecessary copies and intermediate DataFrames
+
+Perform joins only on required columns
+
+📦 Repository Contents
+
+fast_top_cities_polars_lazy.py — ultra-fast Polars pipeline (Lazy mode)
+
+fast_top_cities_duckdb_fast.py — ultra-fast DuckDB SQL pipeline
+
+.gitignore — excludes large/local files
+
+README.md — this documentation
+
+CSV, Parquet, and large datasets are NOT included in the repository.
+You may generate test datasets using the provided scripts.
+
+💡 Next Steps
+
+Add a ClickHouse benchmark (for truly massive datasets)
+
+Package the solution as a reusable analytics library
+
+Implement additional metrics (retention, cohorts, LTV, etc.)
+
+Move configuration parameters into a config file
+
+---------------------------------------------------------------
+---------------------------------------------------------------
+---------------------------------------------------------------
+
 # 🏎️ pandas_optimize_advanced
 
 **Сравнительный бенчмарк производительности и архитектур обработки больших табличных данных в Python с помощью Pandas, Polars и DuckDB**
